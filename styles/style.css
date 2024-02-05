@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+}
+
+.page {
+    /* height: 100%; */
+    display: grid;
+    grid-auto-flow: row;
+    min-height: 100vh;
+}
+
+.nav-main {
+    /* margin: 5rem auto; */
+    /* gap: 1.5rem; */
+    width: min(100%, 75rem);
+    min-height: 70vh;
+    display: grid;
+    grid-template-columns: 30% 70%;
+
+}
+
+#main-player .title {
+    margin: 2rem;
+    gap: 2rem;
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+    display: grid;
+    grid-template-columns: 100%;
+    min-width: 300px;
+    border-radius: 5px;
+    background-color: #cfece9;
+    border: 1px solid #7542ec;
+}
+
+.player {
+    margin: 0.5rem auto;
+    gap: 1rem;
+    padding-left: 15px;
+
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    min-width: 300px;
+    border-radius: 5px;
+    background-color: #cfece9;
+    border: 1px solid #7542ec;
+}
+
+
+
+.player-new {
+    margin: 1rem auto;
+    gap: 1rem;
+    padding-left: 15px;
+
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    min-width: 300px;
+    border-radius: 5px;
+    background-color: #d5d6f1;
+    border: 1px solid #7542ec;
+}
+
+.player-delete {
+    border: 1px solid #7542ec;
+    font-weight: bolder;
+}
+
+nav {
+    display: grid;
+    grid-auto-rows: auto;
+    /* grid-template-rows: 33% 33% 33%; */
+
+}
+
+.nav-buttons {
+    display: grid;
+    grid-auto-rows: auto;
+    /* justify-content: stretch; */
+    /* flex-grow: 1; */
+    /* grid-template-rows: 33% 33% 33%; */
+    gap: 1em;
+    margin: 1em;
+
+    /* padding: 1em; */
+
+}
+
+.player-delete {
+    display: grid;
+    grid-auto-rows: auto;
+    /* justify-content: stretch; */
+    /* flex-grow: 1; */
+    /* grid-template-rows: 33% 33% 33%; */
+    gap: 1em;
+    margin: 1em;
+
+    /* padding: 1em; */
+
+}
+
+header {
+    background-color: beige;
+    min-height: 15vh;
+    padding: 2em;
+    text-align: center;
+    font-family: 'Lexend Deca', sans-serif;
+
+}
+
+nav {
+    background-color: rgb(212, 141, 141);
+}
+
+main {
+    background-color: rgb(146, 196, 216);
+}
+
+footer {
+    background-color: rgb(177, 216, 146);
+    min-height: 10vh;
+    padding: 2em;
+    text-align: center;
+    font-size: small;
+}

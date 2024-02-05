@@ -1,0 +1,32 @@
+{
+    "locations": [
+        {
+            "name": "The Catacombs of Paris",
+            "description": "An underground ossuary in Paris, France, which holds the remains of more than six million people."
+        },
+        {
+            "name": "The Door to Hell",
+            "description": "A natural gas field in Derweze, Turkmenistan, which has been burning continuously since 1971."
+        },
+        {
+            "name": "The Island of the Dolls",
+            "description": "A small island in Xochimilco, Mexico, which is home to hundreds of dolls hanging from trees and buildings."
+        },
+        {
+            "name": "Airplane",
+            "description": "A vehicle designed for air travel that is powered by jet engines or propellers."
+        },
+        {
+            "name": "Mountain",
+            "description": "A large natural elevation of the earth's surface rising abruptly from the surrounding level; a large steep hill."
+        },
+        {
+            "name": "Bus",
+            "description": "A large motor vehicle carrying passengers by road, typically one serving the public on a fixed route and for a fare."
+        },
+        {
+            "name": "Grandma's place",
+            "description": "A place where your grandmother lives."
+        }
+    ]
+}
