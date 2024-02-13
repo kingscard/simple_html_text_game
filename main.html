@@ -22,20 +22,57 @@
             <p class="debug-location">debug-location</p>
             <p class="debug-spy">debug-spy</p>
         </header>
-        <div class="nav-main">
-            <nav>
-                <div class="nav-buttons">
-                    <input class="players-button" type="button" value="Team Setup" />
-                    <input class="location-button" type="button" value="Location Setup" />
-                    <input class="start-button" type="button" value="Start" />
-                </div>
-            </nav>
-            <div id="main-display">
-                <input class="new-button" type="button" value="New Member" />
-                <input class="team-button" type="button" value="Delete Member" />
-                <input class="team-button" type="button" value="Move Member" />
-
+        <!-- <div id="players-setup">
+            <table>
+                <caption>Players setup</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Player's Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</td>
+                        <td>Player 1</td>
+                        <td><input id="player-2-delete-button" type="submit" name="edit" value="Delete"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</td>
+                        <td>Player 2</td>
+                        <td><input id="player-2-delete-button" type="submit" name="edit" value="Delete"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">X</td>
+                        <td><input id="new-player-name" type="entry" name="edit" placeholder="New Player"></td>
+                        <td><input id="new-player-button" type="submit" name="edit" value="Create"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> -->
+        <div id="players-list">
+            <div class="head">
+                <div>Order</div>
+                <div>Player's Name</div>
+                <div>Action</div>
             </div>
+            <div class="test">
+                <!-- <div>1</div>
+                <div>John Smith</div>
+                <div><input id="player-2-delete-button" type="submit" name="edit" value="Delete"></div> -->
+            </div>
+            <div class="body">
+                <div>X</div>
+                <div><input id="new-player-name" type="entry" name="edit" placeholder="New Player"></div>
+                <div><input id="new-player-button" type="submit" name="edit" value="Create"></div>
+            </div>
+
+        </div>
+
+        <div id="start">
+            <h1>Are you ready to start playing ?</h1>
+            <input id="new-game-button" type="submit" name="edit" value="Start a new game">
         </div>
         <footer>
             <p>SpyFall is a game for all made up spys.</p>
