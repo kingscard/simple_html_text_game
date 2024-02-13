@@ -86,56 +86,67 @@ debug_location.textContent = current_location;
 const debug_spy = document.querySelector(".debug-spy");
 debug_spy.textContent = players_names[spy_number];
 
+const team_button = document.querySelector(".players-button");
+team_button.addEventListener('click', displayTeam);
+
+const start_button = document.querySelector(".start-button");
+start_button.addEventListener('click', startNewGame);
+
+// window.addEventListener("DOMContentLoaded", (event) => {
+//     const player_new_button = document.querySelector(".player-new-button");
+//     if (player_new_button) {
+//         player_new_button.addEventListener('click', addNewPlayer);
+//     }
+// });
+
 function addNewPlayer(s) {
+
+
     console.log(s);
 }
 
-function deletePlayer(s) {
-    console.log(s);
+const main_display = document.getElementById("main-display");
+console.log(main_display.textContent)
+
+function displayTeam() {
+    let team_display = '<div id="main-player">';
+    team_display += "<p class='title'>Players</p>";
+
+    players.forEach(player => {
+        team_display += '<div class="player">';
+        team_display += '<p>' + player.id + '</p>';
+        team_display += '<p>Name : ' + player.name + '</p>';
+        team_display += '<input player_id="' + player.id + '" class="player-delete-button" type="button" value="Delete" />';
+        team_display += '</div>';
+    });
+    team_display += '<div class="player-new">';
+    team_display += '<p>New Player\'s name :</p>';
+    team_display += '<input id="player-new-entry" type="entry" placeholder="New Member" value="gna"/>';
+    team_display += '<input class="player-new-button" type="button" value="Add new Player" onclick="addNewPlayer();"/>';
+    team_display += '</div> ';
+    team_display += '</div> ';
+
+    main_display.innerHTML = team_display;
+
+    let player_new_entry = document.getElementById("player-new-entry");
+    // player_new_entry.addEventListener("keypress", addNewPlayer());
+    console.log(player_new_entry.value)
+
+    const player_delete_button = document.querySelector(".player-delete-button");
+    // player_new_button.addEventListener('click', addNewPlayer());
+
+    const player_new_button = document.querySelector(".player-new-button");
+    player_new_button.addEventListener('click', addNewPlayer("poupoupidou"));
+
 }
 
-playersListDisplay()
 
-function playersListDisplay() {
-    document.addEventListener("readystatechange", function (evt) {
-        if (document.readyState == "interactive") {
-            var players_list = document.querySelector('#players-list .test');
-            console.log('playersListDisplay')
-
-            players.forEach(player => {
-                var player_list_body = document.createElement("div");
-                player_list_body.className = "body"
-                player_list_body.id = 'player-' + player.id + '-body'
-                // order.appendChild(document.createTextNode(player.id));
-                players_list.appendChild(player_list_body);
-
-                var order = document.createElement("div");
-                order.appendChild(document.createTextNode(player.id));
-                player_list_body.appendChild(order);
-
-                var player_name = document.createElement("div");
-                player_name.appendChild(document.createTextNode(player.name));
-                player_list_body.appendChild(player_name);
-
-                var list_action = document.createElement("div");
-                list_action.innerHTML = '<input id="player-' + player.id + '-delete-button" type="submit" name="edit" value="Delete">';
-                player_list_body.appendChild(list_action);
-
-                const delete_button = document.getElementById('player-' + player.id + '-delete-button')
-                delete_button.addEventListener('click', () => {
-                    let index = players.findIndex(function (item) {
-                        return item.id === player.id
-                    })
-                    if (confirm("Do you want to delete " + player.name + " ? (index : " + index + ")") == false) {
-                        return
-                    } else {
-                        // players.splice(0, index)
-                        delete players[index]
-                        document.getElementById(player_list_body.id).remove()
-                        playersListDisplay()
-                    }
-                })
-            })
-        }
-    })
-}
+document.addEventListener("readystatechange", function (evt) {
+    if (document.readyState == "interactive") {
+        var players_list = document.querySelector("#players-list");
+        var element = document.createElement("div");
+        element.appendChild(document.createTextNode('The man who mistook his wife for a hat'));
+        document.getElementbyId('players-list').appendChild(element);
+        //document.body.appendChild(element);
+    }
+}) 

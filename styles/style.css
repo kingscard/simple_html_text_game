@@ -6,7 +6,8 @@
     /* height: 100%; */
     display: grid;
     grid-auto-flow: row;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+    min-width: 100vh;
 }
 
 .nav-main {
@@ -64,6 +65,94 @@
 .player-delete {
     border: 1px solid #7542ec;
     font-weight: bolder;
+}
+
+#players-setup {
+    border: 2px #7542ec;
+    background-color: blanchedalmond;
+    border-width: 2px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    table-layout: auto;
+}
+
+#players-list {
+    display: grid;
+    /* grid-template-columns: 20% 60% 20%; */
+    column-gap: 20px;
+    row-gap: 20px;
+    background-color: rgb(143, 189, 250);
+
+
+
+}
+
+#players-list .head {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+    padding-top: 20px;
+
+
+}
+
+#players-list .body {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    font-size: larger;
+    font-weight: bolder;
+    padding-block: 20px;
+    border: 1px solid cadetblue;
+    border-radius: 50px;
+    background-color: aquamarine;
+    text-align: center;
+
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    /* font-size: larger; */
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+thead th:nth-child(1) {
+    width: 20%;
+}
+
+thead th:nth-child(2) {
+    width: 60%;
+}
+
+thead th:nth-child(3) {
+    width: 20%;
+}
+
+tbody td {
+    text-align: center;
+}
+
+tbody tr {
+    border-radius: 20px;
+    background-color: #7542ec;
+}
+
+th,
+td {
+    padding: 0.5em;
+}
+
+#start {
+    background-color: #d5d6f1;
+    border-width: 2px;
+
+    min-height: 15vh;
+    padding: 2em;
+    text-align: center;
 }
 
 nav {
