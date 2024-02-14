@@ -54,6 +54,11 @@ var players = [
         "name": "John",
         "is_spy": false
     },
+    {
+        "id": 3,
+        "name": "Klyde",
+        "is_spy": false
+    },
 ]
 
 // Routine
@@ -97,45 +102,116 @@ function deletePlayer(s) {
 playersListDisplay()
 
 function playersListDisplay() {
-    document.addEventListener("readystatechange", function (evt) {
-        if (document.readyState == "interactive") {
-            var players_list = document.querySelector('#players-list .test');
-            console.log('playersListDisplay')
+    console.log("BEFORE : playersListDisplay document.readyState : " + document.readyState);
 
-            players.forEach(player => {
-                var player_list_body = document.createElement("div");
-                player_list_body.className = "body"
-                player_list_body.id = 'player-' + player.id + '-body'
-                // order.appendChild(document.createTextNode(player.id));
-                players_list.appendChild(player_list_body);
+    var players_list = document.querySelector('#players-list');
 
-                var order = document.createElement("div");
-                order.appendChild(document.createTextNode(player.id));
-                player_list_body.appendChild(order);
+    let players_list_lines = document.querySelectorAll('.player_list_line');
 
-                var player_name = document.createElement("div");
-                player_name.appendChild(document.createTextNode(player.name));
-                player_list_body.appendChild(player_name);
+    console.log("GNAAAAAAAAAAAAAAA");
+    console.log(players_list_lines);
 
-                var list_action = document.createElement("div");
-                list_action.innerHTML = '<input id="player-' + player.id + '-delete-button" type="submit" name="edit" value="Delete">';
-                player_list_body.appendChild(list_action);
-
-                const delete_button = document.getElementById('player-' + player.id + '-delete-button')
-                delete_button.addEventListener('click', () => {
-                    let index = players.findIndex(function (item) {
-                        return item.id === player.id
-                    })
-                    if (confirm("Do you want to delete " + player.name + " ? (index : " + index + ")") == false) {
-                        return
-                    } else {
-                        // players.splice(0, index)
-                        delete players[index]
-                        document.getElementById(player_list_body.id).remove()
-                        playersListDisplay()
-                    }
-                })
-            })
-        }
+    players_list_lines.forEach(player => {
+        console.log("playersListDisplay : remove line");
+        player.remove();
     })
+
+
+    players.forEach(player => {
+        const player_list_body = document.createElement("div");
+        player_list_body.className = "player_list_line"
+        player_list_body.id = 'player-' + player.id + '-body'
+        // order.appendChild(document.createTextNode(player.id));
+        players_list.appendChild(player_list_body);
+
+        const order = document.createElement("div");
+        order.appendChild(document.createTextNode(player.id));
+        player_list_body.appendChild(order);
+
+        var player_name = document.createElement("div");
+        player_name.appendChild(document.createTextNode(player.name));
+        player_list_body.appendChild(player_name);
+
+        const list_action = document.createElement("div");
+        const delete_button = document.createElement("button");
+        delete_button.id = "player-" + player.id + "-delete-button";
+        delete_button.type = "button";
+        delete_button.innerHTML = "Delete";
+        delete_button.value = player.id;
+        delete_button.onclick = () => deletePlayer(player.id);
+        list_action.appendChild(delete_button);
+
+        player_list_body.appendChild(list_action);
+
+        // const delete_button_event = document.getElementById('player-' + player.id + '-delete-button')
+        // delete_button_event.addEventListener('click', () => {
+    })
+
+}
+
+// function playersListDisplay() {
+//     console.log("BEFORE : playersListDisplay document.readyState : " + document.readyState);
+//     document.addEventListener("readystatechange", function (evt) {
+//         if (document.readyState == "complete") {
+//             console.log("AFTER : playersListDisplay document.readyState : " + document.readyState);
+//             var players_list = document.querySelector('#players-list');
+
+//             let players_list_lines = document.querySelectorAll('.player_list_line');
+
+//             console.log("GNAAAAAAAAAAAAAAA");
+//             console.log(players_list_lines);
+
+//             players_list_lines.forEach(player => {
+//                 console.log("playersListDisplay : remove line");
+//                 player.remove();
+//             })
+
+
+//             players.forEach(player => {
+//                 const player_list_body = document.createElement("div");
+//                 player_list_body.className = "player_list_line"
+//                 player_list_body.id = 'player-' + player.id + '-body'
+//                 // order.appendChild(document.createTextNode(player.id));
+//                 players_list.appendChild(player_list_body);
+
+//                 const order = document.createElement("div");
+//                 order.appendChild(document.createTextNode(player.id));
+//                 player_list_body.appendChild(order);
+
+//                 var player_name = document.createElement("div");
+//                 player_name.appendChild(document.createTextNode(player.name));
+//                 player_list_body.appendChild(player_name);
+
+//                 const list_action = document.createElement("div");
+//                 const delete_button = document.createElement("button");
+//                 delete_button.id = "player-" + player.id + "-delete-button";
+//                 delete_button.type = "button";
+//                 delete_button.innerHTML = "Delete";
+//                 delete_button.value = player.id;
+//                 delete_button.onclick = () => deletePlayer(player.id);
+//                 list_action.appendChild(delete_button);
+
+//                 player_list_body.appendChild(list_action);
+
+//                 // const delete_button_event = document.getElementById('player-' + player.id + '-delete-button')
+//                 // delete_button_event.addEventListener('click', () => {
+//             })
+//         }
+//     })
+// }
+
+function deletePlayer(player_id) {
+    console.log("deletePlayer");
+    let index = players.findIndex(function (item) {
+        return item.id === player_id
+    })
+    const player = players[index]
+    if (confirm("Do you want to delete " + player.name + " ? (index : " + index + ")") == false) {
+        return
+    } else {
+        players.pop(index)
+        // document.getElementById('player-' + player.id + '-body').remove()
+        playersListDisplay()
+    }
+
 }

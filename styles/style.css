@@ -77,7 +77,7 @@
     table-layout: auto;
 }
 
-#players-list {
+#players {
     display: grid;
     /* grid-template-columns: 20% 60% 20%; */
     column-gap: 20px;
@@ -88,7 +88,7 @@
 
 }
 
-#players-list .head {
+#players .head {
     display: grid;
     grid-template-columns: 20% 60% 20%;
     font-size: larger;
@@ -99,7 +99,8 @@
 
 }
 
-#players-list .body {
+#players .player_list_line,
+.player-list-new {
     display: grid;
     grid-template-columns: 20% 60% 20%;
     font-size: larger;
