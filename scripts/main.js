@@ -45,173 +45,184 @@ var places = [
 
 var players = [
     {
-        "id": 1,
         "name": "Debbie",
         "is_spy": false
     },
     {
-        "id": 2,
         "name": "John",
         "is_spy": false
     },
     {
-        "id": 3,
         "name": "Klyde",
         "is_spy": false
     },
 ]
 
 // Routine
-let players_names = ["Joueur 1", "Joueur 2", "Joueur 3"];
-let locations = ["New-York", "The Moon", "A bus for Elders"];
 
-let spy_number = random_list_number(players_names);
-console.log(spy_number);
-
-let current_location = locations[random_list_number(locations)];
-console.log(current_location);
-
+var game_spy_name = "";
+var game_place_name = "";
 
 function startNewGame() {
-    spy_id = Math.floor(Math.random() * players.length) + 1;
-    place_id = Math.floor(Math.random() * places.length);
-    console.log("spy : " + spy_id + ", place : " + places[place_id].name);
+    console.log("startNewGame");
+
+    const spy_index = random_list_number(players);
+
     players.forEach(player => {
         player.is_spy = false;
-        if (player.id == spy_id) {
+        if (players.indexOf(player, 1) == spy_index) {
             player.is_spy = true;
+            game_spy_name = player.name;
         }
     });
 
+    const place_index = random_list_number(places);
+    game_place_name = places[place_index].name;
+
+    console.log("spy : " + game_spy_name + ", place : " + game_place_name);
+}
+
+
+const new_game_button = document.querySelector("#new-game-button")
+
+new_game_button.onclick = () => {
+    if (players.length >= 2) {
+        startNewGame();
+    }
 }
 
 const debug_location = document.querySelector(".debug-location");
-debug_location.textContent = current_location;
+debug_location.textContent = game_place_name;
 
 const debug_spy = document.querySelector(".debug-spy");
-debug_spy.textContent = players_names[spy_number];
+debug_spy.textContent = game_spy_name;
 
-function addNewPlayer(s) {
-    console.log(s);
-}
+const player_new_button = document.querySelector("#new-player-button");
+player_new_button.setAttribute("disabled", "");
 
-function deletePlayer(s) {
-    console.log(s);
+const player_new_name = document.querySelector("#new-player-name");
+player_new_name.addEventListener("keyup", (event) => {
+    if (player_new_name.value == "") {
+        player_new_button.setAttribute("disabled", "");
+        return;
+    }
+    player_new_button.removeAttribute("disabled");
+})
+
+player_new_button.onclick = () => {
+    if (player_new_name.value != "") {
+        players.push({
+            "name": player_new_name.value,
+            "is_spy": false
+        });
+        playersListDisplay();
+        player_new_name.value = "";
+        player_new_button.setAttribute("disabled", "");
+    }
 }
 
 playersListDisplay()
 
 function playersListDisplay() {
-    console.log("BEFORE : playersListDisplay document.readyState : " + document.readyState);
+    console.log("playersListDisplay document.readyState : " + document.readyState);
 
     var players_list = document.querySelector('#players-list');
 
     let players_list_lines = document.querySelectorAll('.player_list_line');
 
-    console.log("GNAAAAAAAAAAAAAAA");
-    console.log(players_list_lines);
-
+    // Clearing of all elements
     players_list_lines.forEach(player => {
-        console.log("playersListDisplay : remove line");
         player.remove();
     })
-
 
     players.forEach(player => {
         const player_list_body = document.createElement("div");
         player_list_body.className = "player_list_line"
         player_list_body.id = 'player-' + player.id + '-body'
-        // order.appendChild(document.createTextNode(player.id));
         players_list.appendChild(player_list_body);
 
+        const player_index = players.indexOf(player) + 1
+
         const order = document.createElement("div");
-        order.appendChild(document.createTextNode(player.id));
+        order.appendChild(document.createTextNode(player_index));
         player_list_body.appendChild(order);
 
         var player_name = document.createElement("div");
         player_name.appendChild(document.createTextNode(player.name));
         player_list_body.appendChild(player_name);
 
+        // Control buttons on the right
         const list_action = document.createElement("div");
+
+        const up_button = document.createElement("button");
+        up_button.type = "button";
+        up_button.innerHTML = "Up";
+        up_button.value = player.id;
+        up_button.onclick = () => movePlayer(player_index - 1, "up");
+        list_action.appendChild(up_button);
+
+        up_button.setAttribute("disabled", "");
+        if (player_index - 1 > 0) {
+            up_button.removeAttribute("disabled");
+        }
+
+        const down_button = document.createElement("button");
+        down_button.type = "Down";
+        down_button.innerHTML = "Down";
+        down_button.value = player.id;
+        down_button.onclick = () => movePlayer(player_index - 1);
+        list_action.appendChild(down_button);
+
+        down_button.setAttribute("disabled", "");
+        if (player_index < players.length) {
+            down_button.removeAttribute("disabled");
+        }
+
         const delete_button = document.createElement("button");
-        delete_button.id = "player-" + player.id + "-delete-button";
         delete_button.type = "button";
         delete_button.innerHTML = "Delete";
         delete_button.value = player.id;
-        delete_button.onclick = () => deletePlayer(player.id);
+        delete_button.onclick = () => deletePlayer(player_index - 1);
         list_action.appendChild(delete_button);
 
         player_list_body.appendChild(list_action);
 
-        // const delete_button_event = document.getElementById('player-' + player.id + '-delete-button')
-        // delete_button_event.addEventListener('click', () => {
     })
-
 }
 
-// function playersListDisplay() {
-//     console.log("BEFORE : playersListDisplay document.readyState : " + document.readyState);
-//     document.addEventListener("readystatechange", function (evt) {
-//         if (document.readyState == "complete") {
-//             console.log("AFTER : playersListDisplay document.readyState : " + document.readyState);
-//             var players_list = document.querySelector('#players-list');
-
-//             let players_list_lines = document.querySelectorAll('.player_list_line');
-
-//             console.log("GNAAAAAAAAAAAAAAA");
-//             console.log(players_list_lines);
-
-//             players_list_lines.forEach(player => {
-//                 console.log("playersListDisplay : remove line");
-//                 player.remove();
-//             })
+function array_move(arr, old_index, new_index) {
+    console.log("array_move");
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+};
 
 
-//             players.forEach(player => {
-//                 const player_list_body = document.createElement("div");
-//                 player_list_body.className = "player_list_line"
-//                 player_list_body.id = 'player-' + player.id + '-body'
-//                 // order.appendChild(document.createTextNode(player.id));
-//                 players_list.appendChild(player_list_body);
+function movePlayer(player_index, direction = "") {
+    console.log("movePlayer");
+    if (direction == "up") {
+        array_move(players, player_index, player_index - 1);
+    } else {
+        array_move(players, player_index, player_index + 1);
+    }
+    playersListDisplay();
+}
 
-//                 const order = document.createElement("div");
-//                 order.appendChild(document.createTextNode(player.id));
-//                 player_list_body.appendChild(order);
-
-//                 var player_name = document.createElement("div");
-//                 player_name.appendChild(document.createTextNode(player.name));
-//                 player_list_body.appendChild(player_name);
-
-//                 const list_action = document.createElement("div");
-//                 const delete_button = document.createElement("button");
-//                 delete_button.id = "player-" + player.id + "-delete-button";
-//                 delete_button.type = "button";
-//                 delete_button.innerHTML = "Delete";
-//                 delete_button.value = player.id;
-//                 delete_button.onclick = () => deletePlayer(player.id);
-//                 list_action.appendChild(delete_button);
-
-//                 player_list_body.appendChild(list_action);
-
-//                 // const delete_button_event = document.getElementById('player-' + player.id + '-delete-button')
-//                 // delete_button_event.addEventListener('click', () => {
-//             })
-//         }
-//     })
-// }
-
-function deletePlayer(player_id) {
+function deletePlayer(player_index) {
     console.log("deletePlayer");
     let index = players.findIndex(function (item) {
-        return item.id === player_id
+        return item.id === player_index;
     })
     const player = players[index]
     if (confirm("Do you want to delete " + player.name + " ? (index : " + index + ")") == false) {
-        return
-    } else {
-        players.pop(index)
-        // document.getElementById('player-' + player.id + '-body').remove()
-        playersListDisplay()
+        return;
     }
 
+    players.pop(index);
+    playersListDisplay();
 }
