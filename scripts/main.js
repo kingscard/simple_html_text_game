@@ -7,7 +7,9 @@ function Player(name, is_spy) {
 
 // Functions
 function random_list_number(list) {
-    return Math.floor(Math.random() * list.length);
+    const index_random = Math.floor(Math.random() * list.length);
+    // console.log(index_random);
+    return index_random;
 }
 
 // Objects
@@ -70,16 +72,20 @@ function startNewGame() {
 
     players.forEach(player => {
         player.is_spy = false;
-        if (players.indexOf(player, 1) == spy_index) {
-            player.is_spy = true;
-            game_spy_name = player.name;
-        }
-    });
+    })
+    players[spy_index].is_spy = true;
+    game_spy_name = players[spy_index].name;
+
 
     const place_index = random_list_number(places);
     game_place_name = places[place_index].name;
 
-    console.log("spy : " + game_spy_name + ", place : " + game_place_name);
+    console.log("spy (" + spy_index + ") : " + game_spy_name + ", place (" + place_index + "): " + game_place_name);
+
+    const box = document.querySelector('#players');
+
+    // 👇️ removes element from DOM
+    box.style.visibility = 'hidden';
 }
 
 
@@ -110,15 +116,16 @@ player_new_name.addEventListener("keyup", (event) => {
 })
 
 player_new_button.onclick = () => {
-    if (player_new_name.value != "") {
-        players.push({
-            "name": player_new_name.value,
-            "is_spy": false
-        });
-        playersListDisplay();
-        player_new_name.value = "";
-        player_new_button.setAttribute("disabled", "");
+    if (player_new_name.value == "") {
+        return;
     }
+    players.push({
+        "name": player_new_name.value,
+        "is_spy": false
+    });
+    playersListDisplay();
+    player_new_name.value = "";
+    player_new_button.setAttribute("disabled", "");
 }
 
 playersListDisplay()
@@ -157,7 +164,7 @@ function playersListDisplay() {
         const up_button = document.createElement("button");
         up_button.type = "button";
         up_button.innerHTML = "Up";
-        up_button.value = player.id;
+        // up_button.value = player.id;
         up_button.onclick = () => movePlayer(player_index - 1, "up");
         list_action.appendChild(up_button);
 
@@ -169,7 +176,7 @@ function playersListDisplay() {
         const down_button = document.createElement("button");
         down_button.type = "Down";
         down_button.innerHTML = "Down";
-        down_button.value = player.id;
+        // down_button.value = player.id;
         down_button.onclick = () => movePlayer(player_index - 1);
         list_action.appendChild(down_button);
 
@@ -181,7 +188,7 @@ function playersListDisplay() {
         const delete_button = document.createElement("button");
         delete_button.type = "button";
         delete_button.innerHTML = "Delete";
-        delete_button.value = player.id;
+        // delete_button.value = player.id;
         delete_button.onclick = () => deletePlayer(player_index - 1);
         list_action.appendChild(delete_button);
 
@@ -190,6 +197,7 @@ function playersListDisplay() {
     })
 }
 
+// Functions for array management
 function array_move(arr, old_index, new_index) {
     console.log("array_move");
     if (new_index >= arr.length) {
@@ -200,8 +208,7 @@ function array_move(arr, old_index, new_index) {
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr; // for testing
-};
-
+}
 
 function movePlayer(player_index, direction = "") {
     console.log("movePlayer");
@@ -215,11 +222,10 @@ function movePlayer(player_index, direction = "") {
 
 function deletePlayer(player_index) {
     console.log("deletePlayer");
-    let index = players.findIndex(function (item) {
-        return item.id === player_index;
-    })
-    const player = players[index]
-    if (confirm("Do you want to delete " + player.name + " ? (index : " + index + ")") == false) {
+
+    const player = players[player_index];
+
+    if (confirm("Do you want to delete " + player.name + " ? (index : " + player_index + ")") == false) {
         return;
     }
 
